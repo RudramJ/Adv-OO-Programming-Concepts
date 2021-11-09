@@ -1,7 +1,3 @@
-﻿Group 19 Homework-4
-Rudram Joshi
-Moinuddin Memon
-
 
 There are 2 .java files present:
 BattleShip.java (HW 4.1)
