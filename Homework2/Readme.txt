@@ -1,8 +1,3 @@
-﻿Group 19 Homework-2
-Rudram Joshi
-Moinuddin Memon
-
-
 There are 3 files present:
 Coins.java (HW 2.1)
 Palindrome.java (HW 2.2)
