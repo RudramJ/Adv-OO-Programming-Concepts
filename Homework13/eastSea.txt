@@ -1,0 +1,6 @@
+height 3
+width 3
+row  1 2 1 
+row  w 2 w 
+row  w 2 3 
+
