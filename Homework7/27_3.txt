@@ -1,0 +1,40 @@
+1. This program does not compile as is. Why?
+
+> The program does not compile because there is an unreachable return statement on line 14. This statement is made out of a finally block which would returns 1 and for each try catch block finally block would be executed every-time.
+
+2.  Explain the execution of each method in writing
+
+> There are 4 methods in class F.
+
+1.private int noSystemExit()
+If the the unreachable code at line 14 is commented out. The method execution is as follows. The try block a new Exception object is created which is caught by the catch block and “2” is printed. In the finally block “3 finally” is printed and an integer is returned.
+
+2.private int noExeption()
+In this function an arithematic subtraction is performed and a text is displayed in a try block. This operation does not raise any possible exception and hence the catch block execution is ignored and the code inside finally is implemented which displays a text and returns an integer
+
+3.private int anExeption1()
+This method execution creates a new array of integer of size 1. In the try block we are assigning a value of a divide by zero operation to the 3rd position in the array which throws an exception since we cannot divide by zero and also not assign a value to an index which is out bounds for that array. Hence the code inside try is not executed. Since the catch block only handles the arithematic exceptions and not the ArrayIndexOutOfBounds Exception the catch block is also ignored and only the finally block is executed.
+
+4.private int anExeption2()
+This method is similar to private int anExeption1(). Here the ArrayIndexOutOfBounds is raised because we are accessing index 2 in an array of size 0. Hence, when this exception is raised there is no catch block which handles this type of an exception and only the finally block is executed.
+
+5.private void withSystemExit()
+In this function, in the try block we are throwing a new Exception object which is caught by the catch block and the text in the Sysout function is executed. Since there is a System.exit function call, the remaining lines of code after it is not executed.
+
+
+Finally --> Finally block in java can be used to put "cleanup" code such as closing a file, closing connection etc.
+2
+3 finally
+
+2
+3 finally
+1
+
+inside try: 1
+inside finally: 3 
+
+inside finally: 3 
+
+inside finally: 3 
+
+5
