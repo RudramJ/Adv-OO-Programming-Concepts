@@ -1,7 +1,3 @@
-﻿Group 19 Homework-9
-Rudram Joshi
-Moinuddin Memon
-
 
 Palindrome.java -> HW 9.1
 This programs checks whether the number is lychrel or not using the input parameters
