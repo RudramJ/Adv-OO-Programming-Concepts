@@ -1,7 +1,3 @@
-﻿Group 19 Homework-3
-Rudram Joshi
-Moinuddin Memon
-
 
 There are 3 files present:
 StringIntegerArrays.java (HW 3.1)
