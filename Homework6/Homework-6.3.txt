@@ -1,0 +1,29 @@
+1. boolean addAll(Collection<? extends E> c)
+Ans. This method takes the type E or any subclass of type E which implements Collection as an argument. 
+This method returns a boolean value.
+
+2. boolean containsAll(Collection<?> c)
+Ans. This method takes the any type which implements Collection as an argument.
+This method returns a boolean value.
+
+3. static <T> void fill(List<? super T> list, T obj)
+Ans. This generic method defines the parameter type T to pass in its arguments. The first argument List can be of type T or any superclasses of T.
+The second parameter should be object of type T.
+
+4. static <T extends Comparable<? super T>> void sort(List<T> list)
+Ans. This generic method defines the type of parameter T to be passed in its arguments. Here, T or super class of T must implement Comparable.
+The argument List can be of type T or any superclass of T which implements comparable.
+
+5. static <T> void sort(List<T> list, Comparator<? super T> c)
+Ans. This generic method defines the parameter type T to pass in its arguments. The first argument List can be of type T.
+The second argument Comparator c must be T or any super class of T which implements Comparator.
+
+6. static void swap(List<?> list, int i, int j)
+Ans. This static method accepts three arguments of type List, Integer and Integer. Where "?" is an unbounded wildcard which specify that list can be of any type. And i and j are of the type of intgers.
+
+7. static <K, V> Map<K,V> synchronizedMap(Map<K,V> m)
+Ans. This generic method defines the parameter type K and V to be passed in its arguments. The argument indicates Interface Map m which maintains the key with type K and V is the type of mapped values.
+This method return the generic Interface Map with the same parameters type key as K and mapped value as V.
+
+8. static void reverse(List<?> list)
+Ans. This static method conatins the argument list of any type as described by "?"(unbounded wildcard).

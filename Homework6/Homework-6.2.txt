@@ -1,0 +1,9 @@
+Hw 6.1 omits "Saturn". Why?
+
+> In StorageOfAstronomicalObject class we are using vectors to store the objects of all the classes mentioned. The objects are stored by reference. First, the object of Planet is instantiated with parameters of planet saturn, then the same object is instantiated with parameters of Earth, the object reference is now refering to parameters of Earth. Since the same object is added twice in the vector, it will print the parameters of Earth twice upon calling the method toString.
+
+why your solution fixes the issue?
+
+> The copy-constructor is added to all the astronomical classes Planet, Asteroid and Binaries so as to get the new object with same parameters corresponding to the object to be stored in vector. By doing so we create the new object with same parameters. Now even if the object reference is changed, the old parameters of object are copied to new object and stored in the vector and hence is not affected by changing the reference.
+There are changes done in the method "add" of class StorageOfAstronomicalObject. The instance of object passed to add method is identified first and with respect to that the object is passed onto the constructors of respective classes to get new object reference. And then this new object reference is stored in the vector.
+Thus, by implementing the above changes were were able to retrive the planet "Saturn" which was omitted in 6.1.

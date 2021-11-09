@@ -1,0 +1,39 @@
+/**
+ * This method stores the object of class which extends 
+ * Planet
+ * 
+ * @param anyAstronomicalObject  Object of Planet
+ */
+@SuppressWarnings("unchecked")
+public void add( Planet anyAstronomicalObject) {
+	Planet myPlanet = new Planet( anyAstronomicalObject );
+	
+	astronomicalVector.addElement((T) myPlanet );
+	calculateDensityOnAverage();		
+}
+/**
+ * This method stores the object of class which extends 
+ * Asteroid
+ * 
+ * @param anyAstronomicalObject  Object of Asteroid
+ */
+@SuppressWarnings("unchecked")
+public void add( Asteroid anyAstronomicalObject) {
+	Asteroid myAsteriod = new Asteroid( anyAstronomicalObject);
+	
+	astronomicalVector.addElement((T) myAsteriod );
+	calculateDensityOnAverage();		
+}
+/**
+ * This method stores the object of class which extends 
+ * Binaries
+ * 
+ * @param anyAstronomicalObject  Object of Binaries
+ */
+@SuppressWarnings("unchecked")
+public  void add( Binaries anyAstronomicalObject) {
+	Binaries myBinaries = new Binaries( anyAstronomicalObject);
+	
+	astronomicalVector.addElement((T) myBinaries );
+	calculateDensityOnAverage();
+}
