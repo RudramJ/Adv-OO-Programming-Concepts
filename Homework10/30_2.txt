@@ -1,0 +1,35 @@
+Object of threads assuming size 3
+T1 First == T3 Second
+T1 Second == T2 First
+T2 Second == T3 First
+
+Synchronized blocks is inside infinite loop, this indicates the threads never terminates until some exception occurs in lastSeen count.
+
+In line 51, scheduler has two choice of threads to choose from T1 and main thread.
+We assume that the main thread terminates first and the T1 thread starts.
+
+On starting T1 enters the first synchronized block with object first since two objects first and second are initialized in the contructor. That gives access to T1 to enter the block. Again for the same reason T1 can enter second synchronization block.
+First, it notifies all the threads which are waiting with object second(index 1), then update the lastSeen variable. It prints "1" and checks for creation limit. If limit is not reached, it increment the creation counter and creates new thread with id as creation counter and next two indexes of array of object.
+After completing the first block, the thread T1 calls wait() with object first(index 0) and wait at line 45 until it is notified with the same object.  
+
+Now, the thread T2 enters both synchronized block as first and second object is updated in constructor with next indexes of array object.
+It notifies the thread with object second(index 2) but the object used for T1 wait is different(index 0 != index 2) so T1 is not notified and T2 continues to create new thread T3 and enters wait with object first(index 1).
+
+Now, the thread T3 enters both synchronized block as first and second object is updated in constructor with next indexes of array object.
+It notifies the thread with object second(index 0), the object used for T1 wait is same now(index 0 == index 0) so T1 is notified  and avaiable to the scheduler. Thread creation limit is reached, T3 cannot create new thread and enters wait with object first(index 2).
+
+Only thread T1 is available to to the scheduler, it can now enter both synchronized block. It notifies with object second(index 1), T2 is notified now because of same object. T1 id is printed and doesnot create new thread and enters wait. 
+
+T2 thread notifies with second object(index 2), T3 is notified since the object was same. T2 id is printed and T3 continues to enter the synchronization block.
+
+This wait and notify goes on synchronously in infinite loop.
+This printing countinues infinitly,
+1
+2
+3
+1
+2
+3
+.
+.
+.

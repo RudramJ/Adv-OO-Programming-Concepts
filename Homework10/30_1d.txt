@@ -1,0 +1,47 @@
+case 4:
+In line number 11, If only T1 is choosed by the scheduler first.
+(T1 object != T2 Object) but T1 doesnot reach wait.
+
+> This thread enters the synchronized block prints "1 -->".
+> Main thread now executes line 12, T2 created and object is also updated. Main and T0 terminates.
+> Scheduler again assign T1, T1 now enters wait but the object is changed.
+> This will throw IllegalMonitorStateException.
+> T1 terminaates, T2 is assigned now and executes the synchronized block.
+
+(Error will be seen when different object tries to access wait and notifyall method)
+/****************PRINT 4*****************************/
+1 --->
+Exception in thread "Thread-1" java.lang.IllegalMonitorStateException: current thread is not owner
+    at java.base/java.lang.Object.wait(Native Method)
+    at java.base/java.lang.Object.wait(Object.java:321)
+    at X.run(X.java:26)
+2 --->
+2 <---
+/****************PRINT 4*****************************/
+
+public void run () {
+
+    if ( id == 0 )  {
+        new X(1).start();
+        try {
+            sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new X(2).start();
+        return;
+    }
+    synchronized ( o ) {
+        System.err.println(id + " --->");
+        try {
+            if ( counter == 0 )	{
+                counter = 1;
+                o.wait();
+            } else
+                o.notifyAll();
+        }
+        catch (  InterruptedException e ) {
+        }
+        System.err.println(id + " <---");
+    }
+}

@@ -1,0 +1,44 @@
+case 3:
+In line number 11, If only T1 is choosed by the scheduler first.
+(T1 object != T2 Object) but T1 reached wait.
+
+> This thread enters the synchronized block prints "1 -->" and waits.
+> Now T2 enters the synchronized block, prints "2 -->".
+> Notifies all thread in waiting in same object(None are selected)
+> T2 terminates
+> T1 is never notified from wait, and the JVM doesnot terminates.
+
+
+/****************PRINT 3*****************************/
+1 --->
+2 --->
+2 <---
+(T1 is in wait, JVM Doesnot Terminate )
+/****************PRINT 3*****************************/
+
+public void run () {
+
+    if ( id == 0 )	{
+        new X(1).start();
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new X(2).start();
+        return;
+    }
+    synchronized ( o ) {
+        System.err.println(id + " --->");
+        try {
+            if ( counter == 0 )	{
+                counter = 1;
+                o.wait();
+            } else
+                o.notifyAll();
+        }
+        catch (  InterruptedException e ) {
+        }
+        System.err.println(id + " <---");
+    }
+}

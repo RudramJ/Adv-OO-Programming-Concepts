@@ -1,0 +1,51 @@
+case 1: if line 11 and 12 executes, T1 and T2 has now same object. If scheduler choose T2
+> Key is available as no threads is executing the synchronized block
+> It will execute the synchrionized block by receiving a key (setting a flag) from the object to execute this block.
+> First this will print "2 --->"
+> The initial value of counter is 0, therefore it will go into if block make counter value 1 and wait (gives the key back to object until it is notified).
+
+Now, scheduler has only one choice of thread to choose from, the thread with id 2 executes.
+> Since the thread 1 is initialized with same object (object has key available). So, it can execute the synchronized block.
+> First this will print "1 --->"
+> Counter is 1, so this will execute the else block. Here it will invoke notifyAll() method(This method releases all the thread in corresponding object wait).
+> Now the secheduler has two threads to choose from, thread with id 1 and 2.
+> Since the thread 1 haven't executed the synchronized block, the key is unavailable (flag not resetted) for thread 2 to execute the synchronized block.
+> The thread 2 first completes the synchronized block, it will the print "1 <---" at line number 26 and gives back to key to the object(resetting the flag)
+
+> Now, only one thread is remaining to choose thread 1, this will start from line number 20.
+> Prints "2 <---" at line 26 and finishes the block by giving back the key(resetting the flag) and terminates
+/****************PRINT 2*****************************/
+2 --->
+1 --->
+1 <---
+2 <---
+/****************PRINT 2*****************************/
+
+public void run () {
+
+    if ( id == 0 )	{
+        new X(1).start();
+        new X(2).start();
+        return;
+    }
+    if(this.id == 1) {
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    synchronized ( o ) {
+        System.err.println(id + " --->");
+        try {
+            if ( counter == 0 )	{
+                counter = 1;
+                o.wait();
+            } else
+                o.notifyAll();
+        }
+        catch (  InterruptedException e ) {
+        }
+        System.err.println(id + " <---");
+    }
+}
