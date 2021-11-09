@@ -1,7 +1,3 @@
-﻿Group 19 Homework-1 
-Moinuddin Memon
-Rudram Joshi
-
 There are 3 files present:
 Prime.java (HW 1.1)
 Coins.java (HW 1.2)
