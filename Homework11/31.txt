@@ -1,0 +1,31 @@
+The given program produces the same output regardless of the thread execution orders.
+The output is:
+0
+1
+And the program never terminates it execution because of the wait method called called in the synchronised block of o_2 object.
+The main method creates a Thread of class XX with objects o_1,o_2,stop of Object class as the parameters to the constructor.
+Inside the run method of the Thread, the first synchronised block gives the key to thread_1, prints "0", enters the if loop because the value of the static variable oneIsRunning is false.Inside the If block, a new thread with parameters "1",o_2,o_1,stop is created and the start method is called here.
+Now the scheduler has 2 threads execution , it can either start the execution of thread_1 or thread_2. This arises various paths of execution.
+Consider case 1:
+After thread_2.start is called, the scheduler continues with the execution of thread_1,
+Changes the value of oneIsRunning to true.
+Then enters the synchronised block of o_2, where o_2.wait() method suspends this particular thread and releases the key for other threads to enter.
+Then scheduler starts the execution of thread_2. The first synchronised block for thread_2  is on the object o_2(Since the o_2 is referred as o_1 in the constructor of this object). Since the key for o_2 has been released by the previous thread_1's run, thread_2 enters this block and prints "1". It does not satisfies the condition of if block(since oneIsRunning is a static variable whose value is true) and tries to enter synchronised block of o_2(which in thread_2's case is o_1).Since the thread_1 has not yet finished its execution of synchronised block of o_1 , this causes a deadlock condition where each thread is waiting for the other to release a resource. Thread_1 is not notified by other thread and hence cannot complete its execution.
+Output:
+0
+1
+
+Consider case 2:
+After thread_2 is created , the scheduler starts with its execution and stops thread_1's execution. Since the o_1 object of thread_2 is o_2 it enters the synchronised block o_1, prints "1", enters if block since oneIsRunning is still false, creates a new thread with constructor parameters o_2,o_1,stop, makes the oneIsRunning flag true.
+Then it tries to enter the synchronised block on o_1 but it cannot enter because thread_1 has not yet exited the loop of object o_1.The newly created thread cannot enter the synchronised block of o_2 since it is currently used by thread_2. Hence again, due to a deadlocked situation the program will run forever without terminating.
+Output:
+0
+1
+
+Consider case 3:
+Thread_1 prints "0". After the creation of the 2nd thread (thread_2), the scheduler continues with the thread_1 , changes oneIsRunning to true, and then the scheduler stops the execution of thread_1 and starts thread_2.
+thread_2 enters synchronised block of o_1(o_2 for thread_2), prints "1", tries to enter tries to enter synchronised block of o_2(o_1 for thread_2) which is currently executed by thread_1. Now thread_1 cannot enter synchronised o_2 block since it is currently being executed by thread_2 and hence a deadlock condition is created and the program is unable to finish its execution.
+Output:
+0
+1
+Program never terminates.
