@@ -1,7 +1,3 @@
-﻿Group 19 Homework-8
-Rudram Joshi
-Moinuddin Memon
-
 
 NumberCounter.java -> HW 8.1
 The input(File name) to this program can be given using command line arguements or the standard input
