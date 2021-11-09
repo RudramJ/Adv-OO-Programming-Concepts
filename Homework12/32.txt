@@ -1,0 +1,26 @@
+Q) Is it guaranteed that every philosopher will be able to eat?
+> No, it is not guranteed that every philosopher eats.
+
+Here, each philosopher is each thread and the fork is represented as the locking objects.
+Each philosopher has two forks(Integer objects from Integer array) right and left.
+Philosophers -> right object, left object
+Philosopher 0 -> 3(Index 3), 0(Index 0)
+Philosopher 1 -> 0(Index 0), 1(Index 1)
+Philosopher 2 -> 1(Index 1), 2(Index 2)
+Philosopher 3 -> 2(Index 2), 3(Index 3)
+
+In line number 53, all the threads are started. We assume that the main thread is seleted first(out of 5) after line 53 by scheduler and it is terminated.
+Now, there are 4 options of threads(Philosophers) available to the scheduler.
+
+In the run method, there is an infinite loop(while true) which indicates JVM never terminates.
+Also, for every thread entry there is a random sleep between 0 and 1000 mili-seconds.
+Every thread enters "if" block and never enters "else" block since the value of "me" assigned is 0 to 3 through constructor and is never changed elsewhere.
+In "if" block it prints "me thinks",then sleeps for a random amount of time.
+
+Consider following case.
+Scheduler starts every thread, each thread sleeps for a random amount of time.
+Let thread_1, enter synchronised block for object right(which is fork at index 0).prints that it takes right fork. thread_1 again enters synchronised for left object(fork at index 3), prints an output and again waits for a random time. This execution does not lead to deadlock. But it is not guaranteed that deadlock will not be there.
+Consider thread_1 starts its execution, enters synchronised block for right fork, then thread_2, thread_3 and thread_4 does the same. If the sleep time is same for any 2 adjacent threads, the right fork of the preceding thread becomes the left fork for the next thread. Hence we enter a situation where 2 adjacent threads are competing for the same fork and not releasing their other synchronised resource.
+Due to the fact that threads are getting the resources in a circular way, there might be a scenario where all the threads enter the synchronised block of their right fork simultaneously; which could lead to deadlock because the last thread's right fork is the first thread's left fork(this is same for all the adjacent threads).Due to this, the program enters Deadlock. 
+
+
