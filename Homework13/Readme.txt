@@ -1,7 +1,3 @@
-﻿Group 19 Homework-13
-Rudram Joshi
-Moinuddin Memon
-
 Arguments for server: "-hostname localhost -port 4567 -first -ocean northSea.txt"
 Arguments for client: "-hostname localhost -port 4567 -second -ocean eastSea.txt"
 
